@@ -36,8 +36,8 @@ encoder와 decoder의 layer수는 도메인에 따라 4개 혹은 5개를 사용
 Discriminator는 Generator의 encoder와 유사하다.
 ConvNet에 LeakyReLU를 쓰고 4x4 필터의 추가적인 ConvNet을 쓰고 마지막에 sigmoid로 output을 0~1 사이로 만든다.
 
-### GAN with Reconstruction Loss
-
+### 3.GAN with Reconstruction Loss
+original GAN은 gaussian noise z를 쓰는데, 이 모델에선 약간 수정을 해서 input으로 noise 대신 이미지를 쓴다.
 
 
 
