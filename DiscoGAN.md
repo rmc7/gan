@@ -41,4 +41,24 @@ original GAN은 gaussian noise z를 쓰는데, 이 모델에선 약간 수정을
 기존 구조는 도메인A에서 도메인B로만 가는 단방향 mapping만 학습하므로, 2차 generator를 추가하여 도메인B에서 도메인A로 다시 mapping한다.
 또한 input 이미지를 재구성된 이미지와 비교하기 위해 reconstruction loss를 추가했다.
 
+Generator G_AB는 2개의 loss를 받는다.
+하나는 reconstruction loss로 원본 이미지가 2번의 생성 이후에 얼마나 잘 구성되었는지 측정하며,
+다른 하나는 standard GAN generator loss로 도메인 B에 생성된 이미지가 얼마나 사실적인지 측정한다.
+Discriminator는 standard GAN discriminator loss를 받는다.
+
+Training 하는동안, generator G_AB는 2개의 제약 아래에 도메인A에서 B로의 mapping을 학습한다.
+하나는 도메인A에서 B로 mapping, 다른 하나는 도메인B에 mapping한 것이 도메인A로 재구성되는 것이다.
+그러나 이 모델은 B에서 A로의 mapping을 제약하는데 부족하며, 2개의 조건은 단독으로 cross-domain 관계를 보장하지 않는다.
+왜냐하면 이 제약들을 만족하는 mapping은 단방향이기 때문이다.
+즉, mapping은 bijection이 아니라 injection이며 일대일 대응을 보장하지 않는다.
+
+2개의 multi-modal image 도메인A와 B를 고려하면, mode collapse 문제가 생길 수 있다.
+즉, 한 도메인의 여러 mode들이 다른 도메인의 단일 mode에 mapping할 수 있는 것이다.
+알려진대로 standard GAN에 reconstruction loss를 추가하면 mode collapse의 예방을 시도할 수 있다.
+하지만 이 loss는 2개 상태의 oscillation진동을 만들뿐 정말로 mode collapse를 해결하지는 못한다.
+
+### 4.제안 모델: Discovery GAN
+
+
+
 
