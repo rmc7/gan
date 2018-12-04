@@ -17,13 +17,13 @@ unpaired data에서 서로 다른 도메인 사이의 관계를 발견하는 것
 
 모델
 =
-1.수식
+### 1.수식
 강한 제약은 최적화가 어려우므로 가벼운 최적화 관점에서 거리인 d(G_BAㅇG_AB(x_A),x_A)를 최소화한다.
 d(G_ABㅇG_BA(x_B),x_B)도 최소화한다.
 
 G_AB를 도메인B에 mapping하는 것은 최적화가 어려워서 GAN loss를 최소화하여 제약을 약하게한다.
 
-2.Notation and Architecture
+### 2.Notation and Architecture
 Generator는 G_AB : R_A 64x64x3을 R_B 64x64x3으로 denote하고, input에서 output 도메인으로 denote하고, input에서 output 사이즈로 denote한다.
 Discriminator는 D_B : R_B 64x64x3을 [0,1]로 바꾸고 subscript B는 도메인 B의 이미지를 구별하도록 한다.
 G_BA와 D_A도 유사하게 사용된다.
@@ -32,6 +32,12 @@ G_BA와 D_A도 유사하게 사용된다.
 encoder는 4x4 필터의 ConvNet이며 leakyReLU를 쓴다.
 decoder는 4x4 필터의 DeconvNet이며 ReLU를 쓰고 output은 64x64x3의 타겟도메인 이미지다.
 encoder와 decoder의 layer수는 도메인에 따라 4개 혹은 5개를 사용한다.
+
+Discriminator는 Generator의 encoder와 유사하다.
+ConvNet에 LeakyReLU를 쓰고 4x4 필터의 추가적인 ConvNet을 쓰고 마지막에 sigmoid로 output을 0~1 사이로 만든다.
+
+### GAN with Reconstruction Loss
+
 
 
 
