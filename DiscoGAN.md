@@ -62,10 +62,10 @@ Training 하는동안, generator G_AB는 2개의 제약 아래에 도메인A에�
 2개 모델은 동시에 학습된다. G_AB와 G_BA는 파라미터를 공유하고 생성된 이미지 x_BA와 x_AB는 각각 discriminator L_D_A와 L_D_B에 들어간다.
 이전 모델들과 다른 점은 양 도메인의 input 이미지가 재구성되고 2개의 reconstruction loss가 있다는 것이다 : L_CONST_A와 L_CONST_B
 
-2개 모델의 커플링으로 인해, 전체 generator loss는 각 부분 모델의 GAN loss와 reconstruction loss의 합이다.
-유사하게 전체 discriminator도 D_A와 D_B의 loss의 합이다. 이는 도메인A와 B에서 진짜 이미지와 가짜 이미지를 구별한다.
+*2개 모델의 커플링으로 인해, 전체 generator loss는 각 부분 모델의 GAN loss와 reconstruction loss의 합이다.*
+*유사하게 전체 discriminator도 D_A와 D_B의 loss의 합이다. 이는 도메인A와 B에서 진짜 이미지와 가짜 이미지를 구별한다.*
 
-따라서 2개의 GAN loss와 reconstruction loss로 bijection mapping이 달성되고 (cross-domain 관계로 정의한) 일대일 대응이 발견될 수 있다.
+*따라서 2개의 GAN loss와 reconstruction loss로 bijection mapping이 달성되고 (cross-domain 관계로 정의한) 일대일 대응이 발견될 수 있다.*
 
 실험
 =
