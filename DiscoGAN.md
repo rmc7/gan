@@ -38,6 +38,7 @@ ConvNet에 LeakyReLU를 쓰고 4x4 필터의 추가적인 ConvNet을 쓰고 마�
 
 ### 3.GAN with Reconstruction Loss
 original GAN은 gaussian noise z를 쓰는데, 이 모델에선 약간 수정을 해서 input으로 noise 대신 이미지를 쓴다.
-
+기존 구조는 도메인A에서 도메인B로만 가는 단방향 mapping만 학습하므로, 2차 generator를 추가하여 도메인B에서 도메인A로 다시 mapping한다.
+또한 input 이미지를 재구성된 이미지와 비교하기 위해 reconstruction loss를 추가했다.
 
 
