@@ -13,7 +13,7 @@ unpaired data에서 서로 다른 도메인 사이의 관계를 발견하는 것
 각 핸드백 이미지를 기반으로 신발 이미지를 생성할 때, reconstruction loss를 통해 생성된 이미지가 핸드백 이미지의 representation이 되도록하며 또한 GAN loss는 이미지가 신발 도메인에 가까워지도록 한다.
 이런 속성을 이용하여 2개 도메인 사이를 양방향으로 잘 mapping하도록 한다.
 
-모델은 toy domain과 실제 이미지 실험에서 다른 모델보다 mode collapse 문제를 겪고 2개 도메인간의 양방향 mapping을 학습한다.
+모델은 toy domain과 실제 이미지 실험에서 다른 모델보다 mode collapse 문제를 적게 겪고 2개 도메인간의 양방향 mapping을 학습한다.
 
 모델
 =
