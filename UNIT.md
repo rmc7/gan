@@ -52,4 +52,19 @@ h를 가정하는 것은 또한 E1과 E2를 논문의 수식에 의해 represent
 
 Framework
 =
+VAE와 GAN을 기반으로 한다. 총 6개의 서브네트워크로 구성된다.
+2개 도메인 이미지 encoder E1과 E2, 2개 도메인 이미지 generator G1과 G2, 2개의 판별자 D1과 D2이다.
+
+###VAE
+encoder-generator pair인 {E1, G1}은 X1 도메인을 위한 VAE로 구성되어 있다.
+input 이미지 x1에 대하여, VAE1은 먼저 x1을 E1을 통해 latent space z의 code로 연결하고 G1을 통해 input 이미지를 재구성하기 위해 code의 random-perturbed version으로 decode한다. latent space Z의 구성은 독립적이고 unit variance의 가우시안으로 가정한다.
+encoder의 output은 평균 vector E_,1(x1)이고 latent code z1의 분포는 identity matrix I와 함께 한다. (수식 참고)
+
+reparameterization trick을 활용하는 것은 back-propagation을 사용하여 VAE를 훈련할 수 있도록 한다.
+이 트릭은 non-differentiable 샘플링이 보조 random variable을 사용하여 마치 differentaible하게 reparameterized 할 수 있도록 한다.
+
+###Weight-sharing
+
+
+###GAN
 
