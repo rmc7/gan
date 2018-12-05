@@ -23,4 +23,24 @@ coupling 이론에 따르면 joint 분포는 무한한 set이 존재하며 이�
 따라서 marginal 분포로부터 joint 분포를 추론하는 것은 매우 적절하지 않은 문제이다.
 이 ill-posed 문제를 다루기 위해, joint 분포의 구조에 대한 추가적 가정이 필요하다.
 
+이에 shared-latent space 가정을 만든다. *이 가정은 다른 도메인에서의 상응하는 이미지 pair가 shared-latent space의 같은 latent representation에 연결될 수 있는 것이다.*
+가정을 따르고 GAN과 VAE를 기반으로 UNIT framework를 제안한다.
+각 이미지 도메인을 VAE-GAN을 이용하여 모델로 만든다.
+적대적 훈련 objective는 weight-sharing constraint와 함께 교차하여 (shared-latent space를 유도한다) 2개 도메인에 상응하는 이미지를 만들고,
+VAE는 각 도메인에서의 input 이미지와 변형된 이미지를 관계시킨다.
+shared-latent space 가정은 Coupled GAN에서 join 분포 학습을 위해 사용되었고, 여기에선 UNIT 문제를 위해 확장되었다.
+또한 shared-latent space constraint는 cycle-consistency constraint를 암시한다.
+
+가정
+=
+X1과 X2는 2개의 이미지 도메인이다
+supervised image-to-image translation에선 joint 분포로부터 나온 샘플 x1, x2가 주어진다.
+UNIT에선 marginal 분포 Px1(x1)과 Px2(x2)로부터 나온 샘플이 주어진다.
+joint 분포의 무한한 set이 given marginal 분포를 야기할 수 있기 때문에, 추가적인 가정이 필요하다.
+
+가정은 shared-latent space이다.
+
+
+Framework
+=
 
