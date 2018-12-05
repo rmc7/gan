@@ -39,7 +39,15 @@ UNIT에선 marginal 분포 Px1(x1)과 Px2(x2)로부터 나온 샘플이 주어�
 joint 분포의 무한한 set이 given marginal 분포를 야기할 수 있기 때문에, 추가적인 가정이 필요하다.
 
 가정은 shared-latent space이다.
+E1과 E2는 각 이미지 x1과 x2를 shared-latent space에 연결하고, G1과 G2는 다시 latent code를 이미지로 연결한다.
+이 가정은 weight sharing constraint를 사용하여 E1과 E2의 깊은 레이어의 weight connection으로 E1과 E2가 밀착하게 하고,
+또한 G1과 G2의 초기 레이어의 weight도 connection하여 G1과 G2를 밀착시킨다.
+G1는 재구성 이미지와 도메인변경 이미지를 생성하고, G2도 동일하다. 이후에 D1과 D2가 각 module에서 변형된 이미지를 판별한다.
 
+이 가정의 실행을 위해 추가로 shared intermediate representation h를 가정하여 (z를 받은 h가 x1과 x2를 생성하는 형태의) 상응하는 이미지 pair 생성과정을 만든다.
+중요부분인 G_H는 일반적인 고레벨 생성함수로 z를 h로 연결하고 G_L,1과 G_L,2는 저레벨 생성함수로 각각 h를 이미지 x1과 x2로 연결한다.
+화창한 이미지와 비오는 이미지 같은 멀티도메인 translation의 경우에, z는 compact한 (정면의 차, 후면의 나무 같은 장면의) 고차원 representation이며, h는 G_H를 통해 z의 부분적 사실화로 고려되고 (나무가 다음 픽셀을 채운다) G_L,1과 G_L,2는 각 modality에서의 실제이미지 formation function이 된다. (나무는 화창할 때 밝은 녹색이지만 비올때는 어두운 녹색이다.) h를 가정하는 것은 또한 E1과 E2를 논문의 수식에 의해 represent 하도록 해준다.
+위 아이디어의 실현은 다음 섹션에서 본다.
 
 Framework
 =
