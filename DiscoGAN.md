@@ -72,3 +72,25 @@ Training 하는동안, generator G_AB는 2개의 제약 아래에 도메인A에�
 ### 1. Toy Experiment
 DiscoGAN은 mode collapse를 피하고, mapping이 bijective이기에 모든 mode에 B sample을 생성을 한다.
 
+### 2. Real Domain Experiment
+도메인 간의 관계를 학습하는지 평가하기 위해, 모델을 몇몇 image-to-imgae translation 과제에 적용하였다.
+모든 input 이미지와 변형된 이미지는 모두 64x64x3이며, 트레이닝에 학습률은 0.0002와 Adam 베타1=0.5, 베타2=0.999를 사용했다.
+처음과 마지막을 제외한 모든 ConvNet과 DeconvNet에 batch normalization을 사용하고, 
+weight decay regularization coefficient는 10-4를 사용하고 minibatch는 200 사이즈로 했다.
+
+### 2.1 Car to Car, Face to Face
+
+### 2.2 Face Conversion
+
+### 2.3 Chair to Car, Car to Face
+
+### 2.4 Edges-to-Photos
+
+### 2.5 Hangbag to Shoes, Shoes to Handbag
+DiscoGAN으로 나온 결과는 유사한 색상과 패턴을 가질 뿐만 아니라 input fashion item에 따라 패션 형태를 유사한 레벨로 가진다.
+
+결론
+=
+논문은 DiscoGAN으로 cross-domain 관계의 발견을 학습한다.
+이는 pair label이 없이도 가능하고 아주 다른 도메인들을 관계시켜 학습한다.
+향후 가능한 방향은 DiscoGAN을 수정하여 text와 이미지 같은 mixed modalities를 다루는 것이다.
