@@ -155,13 +155,13 @@ KL term의 weight이 0.1이면 계속 좋은 성과가 나왔다. 따라서 λ �
 
 관련 연구
 =
-1.GAN
-2.VAE
-variational bound를 최적화한다. variational approximation을 향상시켜서 더 좋은 생성결과를 만든다.
-VAE-GAN 구조는 VAE의 이미지 생성품질을 높이기 위해 제안된 것이다.
-3.conditional generative model
-cGAN의 다수는 지도학습이지만 연구진의 모델은 상응하는 이미지가 필요없다.
-생성 이미지가 진짜 이미지와 비슷하도록 하기 위해, 두 이미지의 L1 distance를 최소화한다.
+1. GAN
+2. VAE
+- variational bound를 최적화한다. variational approximation을 향상시켜서 더 좋은 생성결과를 만든다.
+- VAE-GAN 구조는 VAE의 이미지 생성품질을 높이기 위해 제안된 것이다.
+3. conditional generative model
+- cGAN의 다수는 지도학습이지만 연구진의 모델은 상응하는 이미지가 필요없다.
+- 생성 이미지가 진짜 이미지와 비슷하도록 하기 위해, 두 이미지의 L1 distance를 최소화한다.
 
 결론 및 향후 과제
 =
