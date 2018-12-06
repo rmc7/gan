@@ -142,8 +142,32 @@ KL term의 weight이 0.1이면 계속 좋은 성과가 나왔다. 따라서 λ �
 이는 ill-posed joint 분포의 문제에 대해 제약이 더 있는 것이 효과적임을 나타낸다.
 
 ### 정성 평가
+#### Street Images
+특정 translation은 다른 것보다 어려웠는데, 특히 이미지에 더 많은 디테일을 더해야 하는 translation은 종종 어려웠다. (예: 밤→낮)
 
+### Domain Adaption
+이 모델을 하나의 도메인에서의 labeled 샘플을 이용해 새로운 도메인의 sample을 classify하도록 훈련된 classifier에 적용했다.
+이런 유형은 새로운 도메인의 labeled 샘플을 훈련하는 동안 이용할 수 없다. 초기 과제는 subspace 학습이나 deep feature 학습으로부터 아이디어를 가져왔다.
 
+적용한 분야는 1) 이미지를 source에서 target 도메인으로 translate 2) source 도메인의 판별자에서 뽑아낸 feature를 이용하여 source 도메인의 샘플을 classify하는 분야이다. 여기서 판별자 D1, D2의 깊은 레이어의 weight을 묶는 것은 source 도메인에서 target 도메인으로 훈련된 classifier를 적용할 수 있도록 해준다.
+또한 다른 도메인으로부터 생성된 이미지의 pair를 위해, 판별자들의 최종 레이어에서 추출한 feature 사이의 L1 distance를 최소화하고 이는 또한 D1과 D2가 같은 방법으로 상응하는 이미지의 pair를 해석하도록 해준다.
+진행한 과제 중 USPS를 MNIST로 바꿀때의 경우는 cycle-consistency가 필요없었다.
 
+관련 연구
+=
+1. GAN
+2. VAE
+variational bound를 최적화한다. variational approximation을 향상시켜서 더 좋은 생성결과를 만든다.
+VAE-GAN 구조는 VAE의 이미지 생성품질을 높이기 위해 제안된 것이다.
+3. conditional generative model
+cGAN의 다수는 지도학습이지만 연구진의 모델은 상응하는 이미지가 필요없다.
+생성 이미지가 진짜 이미지와 비슷하도록 하기 위해, 두 이미지의 L1 distance를 최소화한다.
 
+결론 및 향후 과제
+=
+Unsupervised image-to-image translation에 대한 일반적 방법을 보였다.
+트레이닝 셋의 2개 도메인의 상응하는 이미지 없이 하나의 도메인 이미지를 다른 도메인으로 tranlate 할 수 있다.
+현재 framework는 2개의 제한이 있다.
 
+먼저, translation 모델은 Gaussian latent space 가정 때문에 unimodel 이다.
+다음으로 학습은 saddle point를 찾는 문제 때문에 불안정할 수 있다.
