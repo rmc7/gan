@@ -86,4 +86,36 @@ G1은 2 종류의 이미지를 생성하는데 하나는 reconstruction stream�
 GAN2에도 유사한 과정을 적용한다.
 
 ### Cycle-consistency (CC)
-ㅇㅇ
+shared-latent space 가정은 CC를 암시하므로, cycle-consistency constraint를 적용하여 ill-posed UNIT 문제를 정규화할 수 있다.
+결과의 정보처리 stream은 cycle-reconstruction stream으로 부른다.
+
+### Learning
+image reconstruction, image translation, cycle-reconstruction stream을 위한 VAE1, VAE2, GAN1, GAN2의 학습 문제를 합쳐서 해결한다.
+
+VAE 훈련은 variational upper bound를 최소화하는걸 목표로 한다.
+hyper-parameter λ1과 λ2는 objective term의 weight를 조절하고, KL divergence term은 이전 분포로부터 오는 latent code 분포의 deviation에 페널티를 준다.
+이 정규화는 latent space로부터의 sampling을 쉽게 한다.
+pG1과 pG2를 라플라시안 분포를 이용하여 각각 모델로 한다.
+따라서 (수식 뒷편의) negative log-likelihood term을 최소화하는 것은 이미지와 재구성 이미지의 절대적 거리를 최소화하는 것과 같아진다.
+이전 분포는 zero mean Gaussian p(z) = N(z|0,I) 이다.
+
+GAN 부분의 수식은 cGAN의 수식을 따른다.
+이는 각각 변형된 이미지를 타겟도메인으로 재구성하는데 사용된다.
+hyper-parameter λ0는 GAN objective function의 영향을 관리한다.
+
+그리고 CC constraint는 VAE 같은 objective function을 이용하여 모델로 한다.
+negative log-likelihood term은 2번 변형된 이미지를 input으로 바꾸고, KL term은 latent code가 cycle-reconstruction stream 안의 이전 분포로부터의 편차가 생기는 것에 페널티를 준다.
+
+GAN처럼, 제안한 모델의 학습은 saddle point를 찾기 위한 최적화를 목표로 하는 mini-max problem을 해결하도록 한다.
+모델은 2명의 player가 제로썸 게임을 하는 것처럼 보이는데, 전자는 encoder와 generator이고 후자는 discriminator이다.
+전자는 후자를 속이면서 VAE loss와 CC loss를 최소화해야 한다.
+전체 수식을 풀기위해 GAN objective에서 표현된 것과 유사하게 alternating gradient update scheme을 적용한다.
+구체적으로는 E1, E2, G1, G2를 고정하고 *D1과 D2에 gradient ascent*를 적용한다.
+그 후 후자를 고정하고 전자들에게 gradient descent를 적용한다.
+
+### Translation
+학습 이후, subnetwork의 부분집합을 모아서 2개의 image translation function을 얻는다.
+
+실험
+=
+
