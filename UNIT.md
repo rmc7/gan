@@ -80,4 +80,10 @@ x1 이미지를 X2 도메인에 맞추어 변형이 가능하고, 이런 정보 
 따라서 상응하는 이미지 pair를 동일한 latent code에 연결하고 이를 다시 상응하는 이미지 pair로 decode한다.
 
 ### GAN
+모델은 2개의 GAN을 가진다. GAN1은 {D1, G1}이며 GAN2는 {D2, G2}이다.
+G1은 2 종류의 이미지를 생성하는데 하나는 reconstruction stream으로부터의 이미지이고, 다른 하나는 translation stream으로부터의 이미지다.
+전자는 지도적으로 학습되어야 하며, 적대적 훈련은 후자로부터의 이미지에만 적용하면 된다.
+GAN2에도 유사한 과정을 적용한다.
 
+### Cycle-consistency (CC)
+ㅇㅇ
