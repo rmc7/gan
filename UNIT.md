@@ -64,7 +64,20 @@ reparameterization trick을 활용하는 것은 back-propagation을 사용하여
 이 트릭은 non-differentiable 샘플링이 보조 random variable을 사용하여 마치 differentaible하게 reparameterized 할 수 있도록 한다.
 
 ### Weight-sharing
+shared-latent space 가정을 기반으로 2개의 VAE를 관계시키기 위해 weight-sharing constraint를 유도한다.
+E1, E2 후반 레이어의 weight 공유는 2개 도메인의 input 이미지들의 고차원 representation의 추출을 담당한다.
+유사하게 G1, G2 초반 레이어의 weight 공유는 input 이미지들을 재구성하기 위한 고차원 representation의 decoding을 담당한다.
 
+단, 이런 weight sharing이 혼자서 2개의 도메인의 상응하는 이미지가 같은 latent code를 가지는 것을 보장하지는 않는다.
+상응하는 이미지 pair를 위해 추출한 latent code는 종종 다른 경우가 있다.
+만약 같더라도, 같은 latent component는 때로 다른 도메인의 다른 semantic 의미를 가질 수 있다.
+따라서 같은 latent code는 2개의 무관계한 이미지로 decode된다.
+그러나 모델에서는 적대적 훈련으로 2개 도메인의 상응하는 이미지가 하나의 latent code로 연결하는 것을 보여준다.
+
+latent 가정은 image-to-image translation을 가능하게 한다.
+x1 이미지를 X2 도메인에 맞추어 변형이 가능하고, 이런 정보 프로세싱 stream을 image translation stream이라고 정의한다.
+모델에는 X1→X2, X2→X1의 2개의 stream이 있으며, 이것들은 VAE로부터의 2개의 이미지 재구성 stream과 함께 훈련된다.
+따라서 상응하는 이미지 pair를 동일한 latent code에 연결하고 이를 다시 상응하는 이미지 pair로 decode한다.
 
 ### GAN
 
