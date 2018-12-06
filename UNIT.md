@@ -119,3 +119,31 @@ GAN처럼, 제안한 모델의 학습은 saddle point를 찾기 위한 최적화
 실험
 =
 
+### 성과 분석
+데이터는 위성과 지도 사진을 이용하여, 이 두 이미지 사이를 변형하는 것을 학습하도록 한다.
+평가척도로 테스트셋 이미지의 평균 픽셀 정확도를 이용한다.
+타겟 translation function이 unimodal이기 때문에 translation 정확도 측정을 위해 색상의 변화를 사용할 수 있다.
+지도에서 위성으로 변형하는 것은 multi-modal이며 적절한 평가척도 구성이 어렵기 때문에 이는 평가하지 않는다.
+
+실험에서 VAE의 weight-sharing 레이어는 1~4개로 바꾸면서 하였고 판별자의 구조도 그 수를 다르게 하였다.
+얕은 판별자 구조가 낮은 성과를 보였고, weight-sharing 레이어의 수는 영향이 없는 것으로 나왔다.
+이는 residual block의 사용 때문이다.
+하나의 레이어의 weight을 묶음에 따라서 효과적으로 다른 레이어들을 제약하였고, 이는 residual block이 단지 residual information만 업데이트하기 때문이다.
+이후의 실험에서는 VAE는 1개의 sharing layer로만 하고 판별자는 5개의 layer를 사용했다.
+
+연구진은 translation 정확도에 대한 hyper-parameter value의 영향도를 분석했다.
+negative log likelihood term (예: λ2, λ4)의 weight을 다르게 하기 위해, KL term (예: λ1, λ3)의 다른 weight에 대한 translation 정확도를 계산했다.
+negative log likelihood term에 높은 weight을 주면, 보통 translation 정확도가 더 좋아졌다.
+KL term의 weight이 0.1이면 계속 좋은 성과가 나왔다. 따라서 λ 중 1과 3은 0.1이며, 2와 4는 100이다.
+
+또한 weight-sharing과 cycle-consistency constraint가 translation 성과에 미치는 영향을 분석했다.
+만약 weight-sharing constraint가 없다면, 구조는 CycleGAN으로 줄어들게 된다.
+2 종류의 constraint를 모두 적용하면 성과가 좋았다.
+이는 ill-posed joint 분포의 문제에 대해 제약이 더 있는 것이 효과적임을 나타낸다.
+
+### 정성 평가
+
+
+
+
+
