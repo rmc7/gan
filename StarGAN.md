@@ -47,6 +47,20 @@ StarGAN
 먼저 단일 데이터셋 내에서 multi-domain translation을 보여주고, 다음으로 multi 데이터셋을 이용한 translation을 보여준다.
 
 ### 1. Multi-Domain Image-to-Image Translation
+보조 classifier를 추가하여 판별자가 여러 도메인을 컨트롤할 수 있도록한다.
+즉, 판별자는 source와 domain label 둘다에 대한 확률분포를 만든다.
+
+#### Adversarial loss
+생성자는 이미지 G(x,c)를 만들고 판별자는 진짜 여부를 본다.
+논문에서의 D_src(x)는 D에 의해 만들어진 source에 대한 확률분포로 정의한다.
+
+#### Domain Classification Loss
+목표는 x를 y로 바꾸면서, 타겟도메인 c로 적절히 분류되는 것이다.
+이를 위해 판별자 맨위에 보조 classifier를 추가하고 D와 G를 최적화할때 domain classification loss를 부여한다.
+식은 2개의 term으로 나뉘는데, 하나는 D 최적화를 위한 real image loss이고, 다른하나는 G 최적화를 위한 fake image (domain classification) loss이다.
+
+#### 
+
 
 ### 2. Training with Multiple Datasets
 
