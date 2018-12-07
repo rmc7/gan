@@ -112,7 +112,7 @@ CelebA, RaFD
 
 ### 5. Results on RaFD
 
-*!!StarGAN의 또다른 장점은 parameter가 적게 필요하다!!* 는 점이다.
+*!!StarGAN의 또 다른 장점은 parameter가 적게 필요하다!!* 는 점이다.
 이것은 도메인수에 상관없이 하나의 생성자와 판별자만 있어도 되기 때문이다.
 CycleGAN 같은 cross-domain 모델에서는 각 source-target domain pair에 대해 완벽히 다른 모델이 필요하다.
 
