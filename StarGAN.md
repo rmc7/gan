@@ -38,9 +38,9 @@ CelebA와 RaFC를 jointy 훈련시켜서 CelebA의 표정을 RaFD를 통해 학�
 
 관련 연구
 =
-GAN
-conditional GAN
-Image-to-image Translation
+- GAN
+- conditional GAN
+- Image-to-image Translation
 
 StarGAN
 =
