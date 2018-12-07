@@ -59,11 +59,39 @@ StarGAN
 이를 위해 판별자 맨위에 보조 classifier를 추가하고 D와 G를 최적화할때 domain classification loss를 부여한다.
 식은 2개의 term으로 나뉘는데, 하나는 D 최적화를 위한 real image loss이고, 다른하나는 G 최적화를 위한 fake image (domain classification) loss이다.
 
-#### 
+전자는 D에 의해 계산된 도메인에 대한 확률분포이다. 이걸 최소화면서 판별자는 진짜이미지 x를 상응하는 원본도메인 c'에 맞추어 분류한다.
+후자는 fake 이미지에 대한 것으로, 생성자는 이 term을 최소화하여 생성되는 이미지가 타겟 도메인 c로 분류되도록 한다.
 
+#### Reconstruction Loss
+적대적 loss와 분류 loss를 최소화하여, 생성자는 사실적 이미지를 생성하면서 타겟 도메인으로 분류되도록 한다.
+그러나 이것은 input의 도메인 관련부분만 바꾸면서 input 이미지의 내용을 보장하지는 않는다.
+이를 해결하기 위해, cycle consistency loss를 생성자에 추가한다.
+이것은 생성자가 translated image G(x,c)와 원본 도메인 label c'을 input으로 받으면서 원본 이미지 x를 재구성하도록 한다.
+이때 L1 norm을 적용했다.
+하나의 생성자를 두 번 사용하는데, 처음엔 원본 이미지를 타겟 도메인에 맞추어 변형하고 두번째는 변형된 이미지로부터 원본 이미지를 재구성한다.
 
 ### 2. Training with Multiple Datasets
+StarGAN의 중요한 장점은 다른 label type의 다수의 데이터셋을 동시에 사용하고, test시에 모든 label을 컨트롤할 수 있다는 점이다.
+그러나 다수 데이터셋의 학습시 이슈는 label 정보는 각 데이터셋에 대해 *partially known* 라는 것이다.
+CelebA는 머리색, 성별을 가지지만 RaFD에 있는 행복한, 화난 표정을 가지지는 않는다.
+이 문제는 변형된 이미지 G(x,c)로부터 input image x를 재구성할때 label vector c'에 대한 완벽한 정보가 필요하기 때문이다.
 
+#### Mask Vector
+이를 해결하기 위해 mask vector m 을 사용하여 모델로 하여금 구체적이지 않은 label은 무시하고 특정 데이터셋으로부터 확실하게 알게된 label에만 집중하도록 한다. m을 표현하기 위해 n차원의 one-hot vector를 사용하고 n은 데이터셋의 수이다.
+알려진 label c_i의 vector는 binary 특성에 대한 binary vector 혹은 카테고리 특성에 대한 one-hot vector로 표현될 수 있다.
+
+#### Training Strategy
+위 mask vector의 수식으로 정의된 domain lable c를 생성자의 input으로 하여 훈련시킨다.
+이를 통해 생성자는 구체적이지 않은 label (zero vector인) 을 무시하도록 학습하며 잘 알려진 label에 집중한다.
+판별자에서는 모든 데이터셋의 label에 대한 확률분포를 생성하도록 보조 classifier를 확장시킨다.
+그래서 multi-task 학습시 판별자는 알려진 label에 대한 classification loss만 최소화한다.
+CelebA의 이미지를 훈련할 때, 판별자는 오로지 CelebA에 관련된 label에 대한 classification loss만 최소화한다.
+
+Implemenation
+=
+#### Imporved GAN training
+
+#### Network Architecture
 
 
 
