@@ -90,8 +90,50 @@ CelebA의 이미지를 훈련할 때, 판별자는 오로지 CelebA에 관련된
 Implemenation
 =
 #### Improved GAN training
+훈련과정을 안정화하고 고품질 이미지를 생성하기 위해 Adversarial loss를 gradient penalty가 있는 wGAN objective로 대체한다.
 
 #### Network Architecture
+CycleGAN을 적용하여 생성자는 2개의 downsample ConvNet, 6개의 residual block, 2개의 upsample ConvNet으로 구성된다.
+판별자에는 PatchGAN을 참고하여 local image patch가 진짜인지 아닌지 구분한다.
 
+실험
+=
+세 개의 실험을 하는데, 먼저 얼굴 특성에 대한 기존모델과 StarGAN을 비교하고, 다음으로 얼굴표정에 대한 분류실험, 마지막으로 다수 데이터셋에 대한 image-to-image translation 실험을 한다.
 
+### 1. Base Models
+다음 모델을 base로 한다 : DIAT, CycleGAN, IcGAN, 
 
+### 2. Datasets
+CelebA, RaFD
+
+### 3. Training
+
+### 4. Results on CelebA
+
+### 5. Results on RaFD
+
+StarGAN의 또다른 장점은 parameter가 적게 필요하다는 점이다.
+이것은 도메인수에 상관없이 하나의 생성자와 판별자만 있어도 되기 때문이다.
+CycleGAN 같은 cross-domain 모델에서는 각 source-target domain pair에 대해 완벽히 다른 모델이 필요하다.
+
+### 6. Results on CelebA + RaFD
+마지막으로 multiple dataset에 대한 실험을 한다.
+mask vector를 사용하여 두 데이터셋을 jointly하게 훈련시킨다.
+
+#### joint training의 효과
+얼굴 keypoint 인식이나 segmentation 같은 low-level task가 공유되는걸 향상시키기 위해 2개의 데이터셋을 다 사용할 수 있다.
+이것은 얼굴표정 합성 학습에 도움이 된다.
+
+#### mask vector의 학습된 역할
+잘못된 mask vector가 사용되면 얼굴표정 합성에 실패하고, 예시에서는 input 이미지의 나이를 바꾸었다.
+이것은 모델이 mask vector에 의해 얼굴표정 label을 unknown으로 보고 무시하고, 얼굴특징 label을 valid로 보았기 때문이다.
+얼굴특징 중 하나가 young 이기 때문에, 모델이 zero vector를 input으로 받을때 젊은 이미지를 나이들게 바꾸기 때문이다.
+즉, multiple 데이터셋의 모든 label을 포함할때 이미지 변형에 있어 mask vector의 목표된 역할을 적절히 학습한다고 볼 수 있다.
+
+결론
+=
+하나의 생성자와 판별자만으로 multiple domain에서의 이미지변형이 가능하다.
+또한 scalability확장성과 더불어 고품질 이미지 생성의 장점이 있다.
+이는 multi-task 학습과제에 대한 일반적인 능력 덕분이다.
+그리고 mask vector의 사용은 모델로 하여금 domain label들이 다른 데이터셋들을 활용가능하도록 한다.
+따라서 데이터셋의 모든 label을 사용할 수 있다.
