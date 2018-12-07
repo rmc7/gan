@@ -89,7 +89,7 @@ CelebA의 이미지를 훈련할 때, 판별자는 오로지 CelebA에 관련된
 
 Implemenation
 =
-#### Imporved GAN training
+#### Improved GAN training
 
 #### Network Architecture
 
