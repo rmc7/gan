@@ -21,7 +21,10 @@ batch size를 늘릴수록 Inception Score가 상승한다.
 G의 conditional BatchNorm 레이어들에 사용된 class embeddings c는 많은 수의 weight을 포함한다.
 각 embedding마다 별개의 layer를 두기보다, 공유된 embedding을 사용하였고 이는 계산비용의 감소, 훈련속도 향상을 이끌어냈다.
 
-3.1TRADING OFF VARIETY AND FIDELITY WITH THE TRUNCATION TRICK
+다음으로 다양한 계층적 latent space를 사용하여, noise vector z를 G의 시작레이어보다는 복수의 레이어에 적용시킨다.
+이 디자인의 직관은 생성자로 하여금 다른 해상도와 계층들에서 latent space를 사용하여 직접 feature에 영향을 주는 것이다.
+
+3.1 TRADING OFF VARIETY AND FIDELITY WITH THE TRUNCATION TRICK
 ==
 
 
